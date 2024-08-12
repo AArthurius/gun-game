@@ -1,0 +1,46 @@
+[gd_scene load_steps=8 format=3 uid="uid://g0siytyswia3"]
+
+[ext_resource type="Script" path="res://Scripts/player.gd" id="1_1ls3f"]
+[ext_resource type="Texture2D" uid="uid://ds7ya1tt8gssh" path="res://Graphics/PlayerPlaceholder.png" id="2_8no8i"]
+[ext_resource type="Texture2D" uid="uid://dwnfjfs1feo8h" path="res://Graphics/GunPlaceholder.png" id="3_u785l"]
+[ext_resource type="Script" path="res://Scripts/gun.gd" id="3_xdntl"]
+[ext_resource type="Texture2D" uid="uid://udptlt6vq8qj" path="res://Graphics/target.png" id="4_emsm8"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_61hga"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_8no8i")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_cr0x2"]
+radius = 7.0
+
+[node name="Player" type="CharacterBody2D"]
+script = ExtResource("1_1ls3f")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -1)
+sprite_frames = SubResource("SpriteFrames_61hga")
+frame_progress = 0.256235
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_cr0x2")
+
+[node name="lookAt" type="Node2D" parent="."]
+script = ExtResource("3_xdntl")
+
+[node name="RayCast2D" type="RayCast2D" parent="lookAt"]
+target_position = Vector2(127, 0)
+
+[node name="Target" type="Sprite2D" parent="lookAt"]
+visible = false
+texture = ExtResource("4_emsm8")
+
+[node name="GunPlaceholder" type="Sprite2D" parent="lookAt"]
+position = Vector2(10, 0)
+texture = ExtResource("3_u785l")
